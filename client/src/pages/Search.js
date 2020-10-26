@@ -77,7 +77,7 @@ return (
 
             <h1 style={{ textAlign: "center" }}>Event List</h1>
 
-            {events.events ? (
+            {events.events.length ? (
                 <List>
                     {events.events.map((event, index) => (
                         <ListItem key={index}>
