@@ -51,7 +51,7 @@ return (
             <Jumbotron>
 
              <h1>Ticket Master API Search!</h1>   
-
+            <p>Type any Search Value to Begin Your Search</p>
             </Jumbotron>
             <br/>
             <br/>
@@ -81,9 +81,15 @@ return (
                 <List>
                     {events.events.map((event, index) => (
                         <ListItem key={index}>
-                            <h3>{event.name}</h3><br/>
-                            <h5>{event.description}</h5><br/>
-                            <a target href ={event.url}>{event.url}</a>
+                            <Container>
+                            <h3 style={{ textAlign: "center" }}>{event.name}</h3>
+                            <a target = "_blank" rel="noreferrer" style={{ display: 'flex', justifyContent: 'center', color: "purple" }} href ={event.url}>{event.url}</a>
+                            {event.description ? (<p style={{ textAlign: "center" }}>{event.description}</p>) : (<p style={{ textAlign: "center" }}>No description available</p>)}
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            </Container>
                         </ListItem>
                     ))}
                 </List>
