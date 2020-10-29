@@ -3,9 +3,28 @@ import React from "react";
 
 // This file exports the Input, TextArea, and FormBtn components
 
-export function Input(props) {
+export function InputOne(props) {
   return (
     <div className="form-group">
+      <label htmlFor="input_one">Country:</label>
+      <input className="form-control" style={{ width: "80%", marginLeft: 130 }} {...props} />
+    </div>
+  );
+}
+
+export function InputTwo(props) {
+  return (
+    <div className="form-group">
+      <label htmlFor="input_two">City:</label>
+      <input className="form-control" style={{ width: "80%", marginLeft: 130 }} {...props} />
+    </div>
+  );
+}
+
+export function InputThree(props) {
+  return (
+    <div className="form-group">
+      <label htmlFor="input_three">Search Value:</label>
       <input className="form-control" style={{ width: "80%", marginLeft: 130 }} {...props} />
     </div>
   );
@@ -21,7 +40,7 @@ export function TextArea(props) {
 
 export function SubmitBtn(props) {
   return (
-    <button className="btn btn-primary mt-3" style = {{ float: "right", marginRight: 120, marginTop: -22}} {...props} >
+    <button className="btn btn-primary mt-3" style = {{ display: 'flex', justifyContent: 'center' }} {...props} >
       {props.children}
     </button>
   );
