@@ -14,6 +14,12 @@ app.use(bodyParser.json());
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static("client/build"));
 }
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
+
 app.use(cors());
 
 //Add routes, only for view since no backed routuing required

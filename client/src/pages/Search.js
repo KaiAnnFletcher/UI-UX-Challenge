@@ -46,6 +46,9 @@ const fetchEvents = async () => {
 const onSubmitHandler = (e) => {
     //Prevent the browser form refreshing after form submission
     e.preventDefault();
+    if( !setCountry(e.target.value) || !setCity(e.target.value) || !setSearchTerm(e.target.value)) {
+        alert("Please enter a valid search term")
+    }
     //Call fetchEvents async function
     fetchEvents();
 }
