@@ -27,7 +27,6 @@ const Search = () => {
     }
 
     let API_URL = `https://app.ticketmaster.com/discovery/v2/events.json?`;
-    
     let key = require("../utils/API/.env")
 
 //Updating the event results to state
@@ -46,11 +45,12 @@ const fetchEvents = async () => {
 const onSubmitHandler = (e) => {
     //Prevent the browser form refreshing after form submission
     e.preventDefault();
-    if( !setCountry(e.target.value) || !setCity(e.target.value) || !setSearchTerm(e.target.value)) {
-        alert("Please enter a valid search term")
-    }
+    if( country === "" || city === "" || searchTerm === "")  {
+        alert("Please enter valid search terms")
+    } else {
     //Call fetchEvents async function
     fetchEvents();
+    }
 }
 
 //Returning the UI for the events search results

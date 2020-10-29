@@ -10,6 +10,9 @@ const PORT = process.env.PORT || 3001;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(bodyParser.json());
+
+app.use(cors());
+
 //Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static("client/build"));
@@ -17,12 +20,11 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
 
-app.use(cors());
-
-//Add routes, only for view since no backed routuing required
+//Add routes, only for view since no backend routing required
 app.use(routes);
 
 // The "catchall" handler: for any request that doesn't
