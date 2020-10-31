@@ -6,7 +6,7 @@ import React from "react";
 export function InputOne(props) {
   return (
     <div className="form-group">
-      <label htmlFor="input_one">Country:</label>
+      <label htmlFor="input_one">Author:</label>
       <input className="form-control" style={{ width: "80%", marginLeft: 130 }} {...props} />
     </div>
   );
@@ -15,7 +15,7 @@ export function InputOne(props) {
 export function InputTwo(props) {
   return (
     <div className="form-group">
-      <label htmlFor="input_two">City:</label>
+      <label htmlFor="input_two">Title:</label>
       <input className="form-control" style={{ width: "80%", marginLeft: 130 }} {...props} />
     </div>
   );
@@ -24,7 +24,7 @@ export function InputTwo(props) {
 export function InputThree(props) {
   return (
     <div className="form-group">
-      <label htmlFor="input_three">Search Value:</label>
+      <label htmlFor="input_three">Subject:</label>
       <input className="form-control" style={{ width: "80%", marginLeft: 130 }} {...props} />
     </div>
   );

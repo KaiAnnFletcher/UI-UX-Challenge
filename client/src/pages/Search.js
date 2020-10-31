@@ -5,51 +5,50 @@ import { Col, Row, Container } from "../components/Grid";
 import { List, ListItem } from "../components/List";
 import { InputOne, InputTwo, InputThree, SubmitBtn } from "../components/SearchForm";
 
-
 //Search input state using useState Hooks
 //Let's Add the local state for search input using useState hooks
 
 const Search = () => {
     
-    const [searchTerm, setSearchTerm ] = useState("");
+    const [ author, setAuthor ] = useState("");
     const onInputChange_1 = (e) => {
-        setSearchTerm(e.target.value)
+        setAuthor(e.target.value)
     }
 
-    const [country, setCountry] = useState("");
+    const [title, setTitle] = useState("");
     const onInputChange_2 = (e) => {
-        setCountry(e.target.value)
+        setTitle(e.target.value)
     }
 
-    const [city, setCity] = useState("");
+    const [subject, setSubject] = useState("");
     const onInputChange_3 = (e) => {
-        setCity(e.target.value)
+        setSubject(e.target.value)
     }
 
-    let API_URL = `https://app.ticketmaster.com/discovery/v2/events.json?`;
+    let API_URL = `https://www.googleapis.com/books/v1/volumes`;
     let key = require("../utils/API/.env")
 
 //Updating the event results to state
-const [events, setEvents] = useState({ events: [] });
+//Updating the books search results to state
+const [books, setBooks] = useState({ items: [] });
 
-const fetchEvents = async () => {
+const fetchBooks = async () => {
     //Ajax call to API using Axios
-    const result = await axios.get(`${API_URL}keyword=${searchTerm}&countryCode=${country}&city=${city}&apikey=${key}`);
-    console.log(result)
-    setEvents(result.data._embedded);
-    //Events result
-    console.log(result.data._embedded);
+    const result = await axios.get(`${API_URL}?q=inauthor:${author}&intitle:${title}&subject:${subject}key=${key}`);
+    console.log(result);
+    setBooks(result.data);
+    // Books result
+    console.log(result.data);
 }
-
 
 const onSubmitHandler = (e) => {
     //Prevent the browser form refreshing after form submission
     e.preventDefault();
-    if( country === "" || city === "" || searchTerm === "")  {
+    if( author === "" && title === "" && subject === "")  {
         alert("Please enter valid search terms")
     } else {
     //Call fetchEvents async function
-    fetchEvents();
+    fetchBooks();
     }
 }
 
@@ -62,8 +61,7 @@ return (
           <Col size="md-12">
 
             <Jumbotron>
-
-             <h1>Ticket Master API Search!</h1>   
+            <h1>Book Search With google!</h1>   
             <p>Type any Search Value to Begin Your Search</p>
             </Jumbotron>
             <br/>
@@ -73,24 +71,24 @@ return (
             <form onSubmit={onSubmitHandler}>
                 <InputOne
                 type="search"
-                name="country"
+                name="author"
                 placeholder="Type Search Value Here"
-                value={country}
-                onChange={onInputChange_2}
+                value={author}
+                onChange={onInputChange_1}
                 /><br/>
                 <InputTwo
                 type="search"
-                name="city"
+                name="title"
                 placeholder="Type Search Value Here"
-                value={city}
-                onChange={onInputChange_3}
+                value={title}
+                onChange={onInputChange_2}
                 /><br/>
                 <InputThree
                 type="search"
-                name="events"
+                name="subject"
                 placeholder="Type Search Value Here"
-                value={searchTerm}
-                onChange={onInputChange_1}
+                value={subject}
+                onChange={onInputChange_3}
                 /><br/>
             <SubmitBtn type="submit">Submit!</SubmitBtn>
             </form>
@@ -102,16 +100,17 @@ return (
           <Row>
           <Col size ="md-12">
 
-            <h1 style={{ textAlign: "center" }}>Event List</h1>
+            <h1 style={{ textAlign: "center" }}>Book List</h1>
 
-            {events.events.length && events.events.length !== undefined ? (
+            {books.items.length && books.items.length !== undefined ? (
                 <List>
-                    {events.events.map((event, index) => (
+                    {books.items.map((book, index) => (
                         <ListItem key={index}>
                             <Container>
-                            <h3 style={{ textAlign: "center" }}>{event.name}</h3>
-                            <a target = "_blank" rel="noreferrer" style={{ display: 'flex', justifyContent: 'center', color: "purple" }} href ={event.url}>{event.url}</a>
-                            {event.description ? (<p style={{ textAlign: "center" }}>{event.description}</p>) : (<p style={{ textAlign: "center" }}>No description available</p>)}
+                            <h3 style={{ textAlign: "center" }}>{book.volumeInfo.title}</h3>
+                            <div style={{ alignSelf: "center" }}><img style={{ display: 'flex', justifyContent: 'center' }} alt={`${book.volumeInfo.title} book`} src={`http://books.google.com/books/content?id=${book.id}&printsec=frontcover&img=1&zoom=1&source=gbs_api`} /></div>
+                            {/*<a target = "_blank" rel="noreferrer" style={{ display: 'flex', justifyContent: 'center', color: "purple" }} href ={event.url}>{event.url}</a> */}
+                            {book.selfLink ? (<a target = "_blank" rel="noreferrer" style={{ display: 'flex', justifyContent: 'center', color: "purple" }} href ={book.selfLink}>{book.selfLink}</a>) : (<p style={{ textAlign: "center" }}>No link available</p>)}
                             <br/>
                             <br/>
                             <br/>
@@ -130,7 +129,7 @@ return (
 }
 
 Search.defaultProps = {
-    events: []
+    books: []
 };
 
 export default Search;
