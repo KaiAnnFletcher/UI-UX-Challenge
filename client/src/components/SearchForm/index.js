@@ -12,14 +12,14 @@ export function InputOne(props) {
   );
 }
 
-export function InputTwo(props) {
+export default function InputTwo(props) {
   return (
     <div className="form-group">
       <label htmlFor="input_two">Title:</label>
       <input className="form-control" style={{ width: "80%", marginLeft: 130 }} {...props} />
     </div>
   );
-}
+};
 
 export function InputThree(props) {
   return (
@@ -40,8 +40,10 @@ export function TextArea(props) {
 
 export function SubmitBtn(props) {
   return (
-    <button className="btn btn-primary mt-3" style = {{ display: 'flex', justifyContent: 'center' }} {...props} >
+    <div>
+    <button className="btn btn-primary" >
       {props.children}
     </button>
+    </div>
   );
 }
