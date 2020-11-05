@@ -32,7 +32,7 @@ const Search = () => {
     
 
     let API_URL = `https://www.googleapis.com/books/v1/volumes`;
-    let API_KEY = require("../utils/api/.env")
+    let API_KEY = require("./utils/api/.env")
 
 //Updating the event results to state
 //Updating the books search results to state
